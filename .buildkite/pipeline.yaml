@@ -1,0 +1,11 @@
+---
+steps:
+  - label: ':zsh: Run a command and save its success status'
+    command: |
+      ls -la
+      BUILDKITE_COMMAND_EXIT_STATUS=$$?
+  - label: ':confetti: OR :poop:?'
+    command: |
+      echo "I ran because the previous command succeeded."
+    if: |-
+      build.env("BUILDKITE_COMMAND_EXIT_STATUS") == 0
