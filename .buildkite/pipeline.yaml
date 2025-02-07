@@ -1,11 +1,16 @@
 ---
 steps:
-  - label: ':zsh: Pretending I am linting'
+  - label: ':brush: Pretending I am linting'
     key: lint
     command: |
       exit 1
     soft_fail:
       - exit_status: '*'
-  - label: ':fire: Check linting results'
+  - label: ':eye: Check linting results'
     trigger: linting-the-lint
-    if: $$(buildkite-agent step get "outcome" --step "lint") == "passed"
+    command: |-
+      if [ $$(buildkite-agent step get "outcome" --step "lint") == "passed" ]; then
+        echo "We fooled them!"
+      else
+        echo "They didn't fall for it"
+      fi
