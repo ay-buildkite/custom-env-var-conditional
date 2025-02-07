@@ -1,12 +1,12 @@
 ---
 steps:
-  - label: ':x: I am not really linting'
+  - label: ':troll: I am not really linting'
     key: lint-not
     command: |
       exit 1
     soft_fail:
       - exit_status: '*'
-  - label: ':eye: Check linting results'
+  - label: ':sleuth_or_spy: Check linting results'
     depends_on: lint-not
     command: |-
       if [ $$(buildkite-agent step get "outcome" --step "lint-not") == "passed" ]; then
@@ -14,25 +14,25 @@ steps:
       else
         cat << YAML | buildkite-agent pipeline upload
           steps:
-            - block: ":spy: Review lint failures"
-              prompt: "Don't let them win."
+            - block: ":suspect: Not sure if..."
+              prompt: "Legit?"
       YAML
       fi
-  - label: ':check: I am really linting'
+  - label: ':angel: I am really linting'
     key: lint
     command: |
       exit 0
     soft_fail:
       - exit_status: '*'
-  - label: ':eye: Check linting results'
+  - label: ':sleuth_or_spy: Check linting results'
     depends_on: lint
     command: |-
       if [ $$(buildkite-agent step get "outcome" --step "lint") == "passed" ]; then
-      echo ":troll: LMAO! GOTEM!"
+      echo "LMAO! GOTEM!"
       else
         cat << YAML | buildkite-agent pipeline upload
           steps:
-            - block: ":sus: Review lint failures"
-              prompt: "Don't let them win."
+            - block: ":suspect: Not sure if..."
+              prompt: "Legit?"
       YAML
       fi
