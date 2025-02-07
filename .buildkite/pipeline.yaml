@@ -7,10 +7,5 @@ steps:
     soft_fail:
       - exit_status: '*'
   - label: ':fire: Check linting results'
-    depends_on: lint
-    command: |-
-      if [ $$(buildkite-agent step get "outcome" --step "lint") == "passed" ]; then
-        echo "We fooled them!"
-      else
-        echo "They didn't fall for it"
-      fi
+    trigger: linting-the-lint
+    if: $$(buildkite-agent step get "outcome" --step "lint") == "passed"
