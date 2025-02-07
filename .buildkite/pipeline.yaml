@@ -13,8 +13,8 @@ steps:
         echo "LMAO! GOTEM!"
       else
         cat << YAML | buildkite-agent pipeline upload
-        steps:
-          - block: ":sus: Review lint failures"
-            prompt: "Don't let them win."
-        YAML
+          steps:
+            - block: ":sus: Review lint failures"
+              prompt: "Don't let them win."
+      YAML
       fi
