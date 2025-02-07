@@ -1,13 +1,16 @@
 ---
 steps:
-  - label: ':zsh: Run a command and save its success status'
+  - label: ':zsh: Pretending I am linting'
     key: lint
     command: |
-      ls -la
+      exit 1
     soft_fail:
       - exit_status: '*'
-  - wait
-  - label: ':confetti: OR :poop:?'
-    command: |
-      echo "I ran because the previous command succeeded."
-    if: build.state('lint') == 'passed'
+  - label: ':fire: Check linting results'
+    depends_on: lint
+    command: |-
+      if [ $$(buildkite-agent step get "outcome" --step "lint") == "passed" ]; then
+        echo "We fooled them!"
+      else
+        echo "They didn't fall for it"
+      fi
